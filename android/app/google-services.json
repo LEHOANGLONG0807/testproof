@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "525916450873",
+    "project_id": "demoproof",
+    "storage_bucket": "demoproof.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525916450873:android:f9bb74b9264de72a499de8",
+        "android_client_info": {
+          "package_name": "com.example.demoproof"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525916450873-gimp55s4ic0jsgn44uo7ddmb0vnklo7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZVT3uW0GfjGqNw6XHhC5qpun7LOQneBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525916450873-gimp55s4ic0jsgn44uo7ddmb0vnklo7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
