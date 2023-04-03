@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -103,7 +104,7 @@ class SendImageScreenState extends State<SendImageScreen> {
       final newUrl = await reference.getDownloadURL();
       final refDTB = FirebaseDatabase.instance.ref(ref);
 
-      await refDTB.set({"url": newUrl, 'byte':uint8List});
+      await refDTB.set({"url": newUrl, 'byte':jsonEncode(uint8List)});
       setState(() {
         _isUpload = false;
       });

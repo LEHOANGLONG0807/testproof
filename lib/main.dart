@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demoproof/senimage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -67,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final data = event.snapshot.value;
       if (data != null && data is Map) {
         _url.value = data['url'];
-        uint8List.value = _getImageBinary(data['byte']);
+        uint8List.value = _getImageBinary(jsonDecode(data['byte']));
         Get.snackbar('url', _url.value ?? '--null');
       }
     });
