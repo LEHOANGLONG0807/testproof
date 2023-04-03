@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final data = event.snapshot.value;
       if (data != null && data is Map) {
         _url.value = data['url'];
-        uint8List.value = data['byte'];
+        uint8List.value = _getImageBinary(data['byte']);
         Get.snackbar('url', _url.value ?? '--null');
       }
     });
@@ -114,11 +114,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 30,
             ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Get.toNamed(Routes.upload, parameters: {'key': time});
-            //     },
-            //     child: Text('cjdcnjdnc')),
+            ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(Routes.upload, parameters: {'key': time});
+                },
+                child: Text('cjdcnjdnc')),
             QrImage(
               data: 'https://testproof.vercel.app/#/proof/upload?key=$time',
               version: QrVersions.auto,
@@ -128,6 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  Uint8List _getImageBinary(dynamicList) {
+    List<int> intList = dynamicList.cast<int>().toList(); //This is the magical line.
+    Uint8List data = Uint8List.fromList(intList);
+    return data;
   }
 }
 
