@@ -15,7 +15,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp
+
+  ({super.key});
 
   // This widget is the root of your application.
   @override
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage
+
+  ({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -50,9 +54,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final time = DateTime.now().millisecondsSinceEpoch.toString();
+  final time = DateTime
+      .now()
+      .millisecondsSinceEpoch
+      .toString();
 
-  String? _url;
+  final _url = RxnString();
 
   late DatabaseReference starCountRef;
 
@@ -63,10 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
     starCountRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
       if (data != null && data is Map) {
-        setState(() {
-          _url = data['url'];
-        });
-        Get.snackbar('url', _url ?? '--null');
+        _url.value = data['url'];
+        Get.snackbar('url', _url.value ?? '--null');
       }
     });
   }
@@ -81,36 +86,47 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 300,
-              height: 300,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-              child: _url != null
-                  ? Image.network(
-                      _url!,
-                      loadingBuilder: (_, __, ___) {
-                        return const CircularProgressIndicator();
-                      },
-                    )
-                  : const Text('Upload Proof'),
-            ),
+            Obx(() {
+              return Container(
+                width: 300,
+                height: 300,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                child: _url.value != null
+                    ? Image.network(
+                  _url.value!,
+                  loadingBuilder: (_, __, ___) {
+                    return const CircularProgressIndicator();
+                  },
+                )
+                    : const Text('Upload Proof'),
+              );
+            }),
             const SizedBox(
               height: 10,
             ),
-            if (_url != null)
-              InkWell(
-                onTap: () {
-                  Clipboard.setData(ClipboardData(text: _url));
-                },
-                child: Text(
-                  _url ?? '',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+            Obx(() {
+              if (_url.value != null) {
+                return InkWell(
+                  onTap: () {
+                    Clipboard.setData(ClipboardData(text: _url.value));
+                  },
+                  child: Text(
+                    _url.value ?? '',
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }
+              return const SizedBox();
+            }),
             const SizedBox(
               height: 30,
             ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Get.toNamed(Routes.upload, parameters: {'key': time});
+            //     },
+            //     child: Text('cjdcnjdnc')),
             QrImage(
               data: 'https://testproof.vercel.app/#/proof/upload?key=$time',
               version: QrVersions.auto,
