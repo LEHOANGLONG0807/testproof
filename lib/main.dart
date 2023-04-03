@@ -55,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _url = RxnString();
 
+  final uint8List = Rxn<Uint8List>();
+
   late DatabaseReference starCountRef;
 
   @override
@@ -65,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final data = event.snapshot.value;
       if (data != null && data is Map) {
         _url.value = data['url'];
+        uint8List.value = data['byte'];
         Get.snackbar('url', _url.value ?? '--null');
       }
     });
@@ -86,15 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 300,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                child: _url.value != null
-                    ? CachedNetworkImage(
-                        imageUrl: _url.value ?? '',
-                        width: 300,
-                        height: 300,
-                        fit: BoxFit.contain,
-                        httpHeaders: const {"Access-Control-Allow-Headers": "*"},
-                        alignment: Alignment.center,
-                      )
+                child: uint8List.value != null
+                    ? Image.memory(uint8List.value!)
                     : const Text('Upload Proof'),
               );
             }),

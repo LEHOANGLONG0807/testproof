@@ -95,14 +95,15 @@ class SendImageScreenState extends State<SendImageScreen> {
       String nameImage = DateTime.now().millisecondsSinceEpoch.toString();
 
       Reference reference = FirebaseStorage.instance.ref(ref).child('images/$nameImage.png');
+      final uint8List = await image.readAsBytes();
       await reference.putData(
-        await image.readAsBytes(),
+        uint8List,
         SettableMetadata(contentType: 'image/png'),
       );
       final newUrl = await reference.getDownloadURL();
       final refDTB = FirebaseDatabase.instance.ref(ref);
 
-      await refDTB.set({"url": newUrl});
+      await refDTB.set({"url": newUrl, 'byte':uint8List});
       setState(() {
         _isUpload = false;
       });
