@@ -61,11 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     starCountRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
-      Get.snackbar('url', data?.toString()??'---null');
       if (data != null && data is Map) {
         setState(() {
           _url = data['url'];
         });
+        Get.snackbar('url', _url ?? '--null');
       }
     });
   }
@@ -85,7 +85,14 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 300,
               alignment: Alignment.center,
               decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-              child: _url != null ? Image.network(_url!) : const Text('Upload Proof'),
+              child: _url != null
+                  ? Image.network(
+                      _url!,
+                      loadingBuilder: (_, __, ___) {
+                        return const CircularProgressIndicator();
+                      },
+                    )
+                  : const Text('Upload Proof'),
             ),
             const SizedBox(
               height: 30,

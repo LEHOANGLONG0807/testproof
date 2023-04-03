@@ -18,6 +18,8 @@ class SendImageScreenState extends State<SendImageScreen> {
 
   late String _time;
 
+  bool _isUpload = false;
+
   void _incrementCounter() async {
     final picker = ImagePicker();
     final XFile? pickedFile = await picker.pickImage(
@@ -62,11 +64,17 @@ class SendImageScreenState extends State<SendImageScreen> {
                         }),
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                      onPressed: () {
-                        uploadFile(_file!, _time);
-                      },
-                      child: const Text('Send')),
+                  _isUpload
+                      ? const SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircularProgressIndicator(),
+                        )
+                      : ElevatedButton(
+                          onPressed: () {
+                            uploadFile(_file!, _time);
+                          },
+                          child: const Text('Send')),
                 ],
               )
             : const SizedBox(),
@@ -81,6 +89,9 @@ class SendImageScreenState extends State<SendImageScreen> {
 
   Future<String?> uploadFile(XFile image, String ref) async {
     try {
+      setState(() {
+        _isUpload = true;
+      });
       String nameImage = DateTime.now().millisecondsSinceEpoch.toString();
 
       Reference reference = FirebaseStorage.instance.ref(ref).child('images/$nameImage.png');
@@ -92,9 +103,15 @@ class SendImageScreenState extends State<SendImageScreen> {
       final refDTB = FirebaseDatabase.instance.ref(ref);
 
       await refDTB.set({"url": newUrl});
+      setState(() {
+        _isUpload = false;
+      });
       Get.snackbar('Success', 'Upload success');
       return newUrl;
     } catch (e) {
+      setState(() {
+        _isUpload = false;
+      });
       Get.snackbar('Error', e.toString());
       return null;
     }
