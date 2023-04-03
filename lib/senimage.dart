@@ -92,10 +92,10 @@ class SendImageScreenState extends State<SendImageScreen> {
       final refDTB = FirebaseDatabase.instance.ref(ref);
 
       await refDTB.set({"url": newUrl});
-      print('File Upload : $newUrl');
+      Get.snackbar('Success', 'Upload success');
       return newUrl;
     } catch (e) {
-      print('File Upload Error: $e');
+      Get.snackbar('Error', e.toString());
       return null;
     }
   }
