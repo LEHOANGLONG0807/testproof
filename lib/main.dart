@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demoproof/senimage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -15,9 +16,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp
-
-  ({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -34,9 +33,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage
-
-  ({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -54,10 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final time = DateTime
-      .now()
-      .millisecondsSinceEpoch
-      .toString();
+  final time = DateTime.now().millisecondsSinceEpoch.toString();
 
   final _url = RxnString();
 
@@ -93,12 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                 child: _url.value != null
-                    ? Image.network(
-                  _url.value!,
-                  loadingBuilder: (_, __, ___) {
-                    return const CircularProgressIndicator();
-                  },
-                )
+                    ? CachedNetworkImage(
+                        imageUrl: _url.value ?? '',
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.contain,
+                        httpHeaders: const {"Access-Control-Allow-Headers": "*"},
+                        alignment: Alignment.center,
+                      )
                     : const Text('Upload Proof'),
               );
             }),
@@ -109,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (_url.value != null) {
                 return InkWell(
                   onTap: () {
-                    Clipboard.setData(ClipboardData(text: _url.value??''));
+                    Clipboard.setData(ClipboardData(text: _url.value ?? ''));
                   },
                   child: Text(
                     _url.value ?? '',
