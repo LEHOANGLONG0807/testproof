@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (_url.value != null) {
                 return InkWell(
                   onTap: () {
-                    Clipboard.setData(ClipboardData(text: _url.value));
+                    Clipboard.setData(ClipboardData(text: _url.value??''));
                   },
                   child: Text(
                     _url.value ?? '',
