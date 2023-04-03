@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     starCountRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
+      Get.snackbar('url', data?.toString()??'---null');
       if (data != null && data is Map) {
         setState(() {
           _url = data['url'];
