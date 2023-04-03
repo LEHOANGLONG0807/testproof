@@ -116,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(Routes.upload, parameters: {'key': time});
-                },
-                child: Text('cjdcnjdnc')),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Get.toNamed(Routes.upload, parameters: {'key': time});
+            //     },
+            //     child: Text('cjdcnjdnc')),
             QrImage(
               data: 'https://testproof.vercel.app/#/proof/upload?key=$time',
               version: QrVersions.auto,
