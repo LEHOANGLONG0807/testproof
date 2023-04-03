@@ -2,6 +2,7 @@ import 'package:demoproof/senimage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -94,6 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   : const Text('Upload Proof'),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            if (_url != null)
+              InkWell(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: _url));
+                },
+                child: Text(
+                  _url ?? '',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             const SizedBox(
               height: 30,
             ),
