@@ -41,7 +41,10 @@
 </head>
 <body>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -60,7 +63,7 @@
       var firebaseConfig = {
         apiKey: "AIzaSyAIgXbmWaqBjaj73L-XTZtifm9io5Oa3b8",
         authDomain: "demoproof.firebaseapp.com",
-        databaseURL: "https://[YOUR_PROJECT].firebaseio.com",
+        databaseURL: "https://demoproof-default-rtdb.firebaseio.com",
         projectId: "demoproof",
         storageBucket: "demoproof.appspot.com",
         messagingSenderId: "525916450873",

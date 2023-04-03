@@ -38,6 +38,15 @@ dependencies:
   firebase_core: ^2.9.0
   image_picker: ^0.8.7+1
 
+  firebase_core_web: ^2.3.0
+  mime_type: ^1.0.0
+  path: ^1.8.2
+  firebase_storage: ^11.1.0
+  image_picker_web: ^3.0.0+1
+  firebase_database: ^10.1.0
+  get: ^4.6.5
+  qr_flutter: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

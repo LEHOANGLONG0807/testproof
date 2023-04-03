@@ -50,6 +50,7 @@ class DefaultFirebaseOptions {
     apiKey: 'AIzaSyAIgXbmWaqBjaj73L-XTZtifm9io5Oa3b8',
     appId: '1:525916450873:web:8dbf7ba6d7f7230a499de8',
     messagingSenderId: '525916450873',
+    databaseURL: 'https://demoproof-default-rtdb.firebaseio.com',
     projectId: 'demoproof',
     authDomain: 'demoproof.firebaseapp.com',
     storageBucket: 'demoproof.appspot.com',
